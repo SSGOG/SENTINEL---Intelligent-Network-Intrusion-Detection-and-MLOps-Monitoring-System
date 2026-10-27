@@ -1,0 +1,196 @@
+{
+  "primary_machine_learning_csv": [
+    {
+      "filename": "Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+      "size_bytes": 77123859,
+      "sha256": "6ff1580f5f81c0ae28a26f7631721018577f5f7c5e0feac28b795fcfe7b411ee",
+      "row_count": 225745,
+      "column_count": 79,
+      "duplicate_columns": [
+        "Fwd Header Length"
+      ],
+      "blank_labels": 0,
+      "label_distribution": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "nan_count": 4,
+      "inf_count": 64,
+      "validation_status": "VALID"
+    },
+    {
+      "filename": "Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv",
+      "size_bytes": 76906168,
+      "sha256": "ca1824c51bfbb7b3c72290a11be04366ba8815878c6a1cc5c44cb1cee269e99b",
+      "row_count": 286467,
+      "column_count": 79,
+      "duplicate_columns": [
+        "Fwd Header Length"
+      ],
+      "blank_labels": 0,
+      "label_distribution": {
+        "BENIGN": 127537,
+        "PortScan": 158930
+      },
+      "nan_count": 15,
+      "inf_count": 727,
+      "validation_status": "VALID"
+    },
+    {
+      "filename": "Friday-WorkingHours-Morning.pcap_ISCX.csv",
+      "size_bytes": 58316725,
+      "sha256": "53a41c24d570ea83b7ac55b2e94df94e7a8216aeb80a2af0246b6bc8bb543000",
+      "row_count": 191033,
+      "column_count": 79,
+      "duplicate_columns": [
+        "Fwd Header Length"
+      ],
+      "blank_labels": 0,
+      "label_distribution": {
+        "BENIGN": 189067,
+        "Bot": 1966
+      },
+      "nan_count": 28,
+      "inf_count": 216,
+      "validation_status": "VALID"
+    },
+    {
+      "filename": "Monday-WorkingHours.pcap_ISCX.csv",
+      "size_bytes": 176927918,
+      "sha256": "852c4beb34eda186f32561fa79df7a0747e92e1a6535b01270820dd9ffe17f34",
+      "row_count": 529918,
+      "column_count": 79,
+      "duplicate_columns": [
+        "Fwd Header Length"
+      ],
+      "blank_labels": 0,
+      "label_distribution": {
+        "BENIGN": 529918
+      },
+      "nan_count": 64,
+      "inf_count": 810,
+      "validation_status": "VALID"
+    },
+    {
+      "filename": "Thursday-WorkingHours-Afternoon-Infilteration.pcap_ISCX.csv",
+      "size_bytes": 83102436,
+      "sha256": "6bcda3857c2504676034e3ea57762d38393cc734cb377a726bd5cb153961b1b5",
+      "row_count": 288602,
+      "column_count": 79,
+      "duplicate_columns": [
+        "Fwd Header Length"
+      ],
+      "blank_labels": 0,
+      "label_distribution": {
+        "BENIGN": 288566,
+        "Infiltration": 36
+      },
+      "nan_count": 18,
+      "inf_count": 396,
+      "validation_status": "VALID"
+    },
+    {
+      "filename": "Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv",
+      "size_bytes": 52023263,
+      "sha256": "d67066211fb1689c78406f1506f4c44704ecb92088353d5c96d96d6474eb819d",
+      "row_count": 170366,
+      "column_count": 79,
+      "duplicate_columns": [
+        "Fwd Header Length"
+      ],
+      "blank_labels": 0,
+      "label_distribution": {
+        "BENIGN": 168186,
+        "Web Attack \u00ef\u00bf\u00bd Brute Force": 1507,
+        "Web Attack \u00ef\u00bf\u00bd XSS": 652,
+        "Web Attack \u00ef\u00bf\u00bd Sql Injection": 21
+      },
+      "nan_count": 20,
+      "inf_count": 250,
+      "validation_status": "VALID"
+    },
+    {
+      "filename": "Tuesday-WorkingHours.pcap_ISCX.csv",
+      "size_bytes": 135078995,
+      "sha256": "52b8692ae8c7d2ed04671fe2b98335693c0a92c7ab157d8c8b534d6523080851",
+      "row_count": 445909,
+      "column_count": 79,
+      "duplicate_columns": [
+        "Fwd Header Length"
+      ],
+      "blank_labels": 0,
+      "label_distribution": {
+        "BENIGN": 432074,
+        "FTP-Patator": 7938,
+        "SSH-Patator": 5897
+      },
+      "nan_count": 201,
+      "inf_count": 327,
+      "validation_status": "VALID"
+    },
+    {
+      "filename": "Wednesday-workingHours.pcap_ISCX.csv",
+      "size_bytes": 225166395,
+      "sha256": "893c27dc968bf7a8adef1689f90be55ca4a4dc3088fb63d6ff247ac56856df2a",
+      "row_count": 692703,
+      "column_count": 79,
+      "duplicate_columns": [
+        "Fwd Header Length"
+      ],
+      "blank_labels": 0,
+      "label_distribution": {
+        "BENIGN": 440031,
+        "DoS Hulk": 231073,
+        "DoS slowloris": 5796,
+        "DoS Slowhttptest": 5499,
+        "DoS GoldenEye": 10293,
+        "Heartbleed": 11
+      },
+      "nan_count": 1008,
+      "inf_count": 1586,
+      "validation_status": "VALID"
+    }
+  ],
+  "thursday_investigation": {
+    "secondary_webattacks_audit": {
+      "filename": "Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv",
+      "size_bytes": 92030223,
+      "sha256": "e3deaff483d18b53b100a441dff9b8919416df8876b4edcc0f0d1e4bf48397d0",
+      "row_count": 458968,
+      "column_count": 85,
+      "duplicate_columns": [
+        "Fwd Header Length"
+      ],
+      "blank_labels": 288602,
+      "label_distribution": {
+        "BENIGN": 168186,
+        "Web Attack \u2013 Brute Force": 1507,
+        "Web Attack \u2013 XSS": 652,
+        "Web Attack \u2013 Sql Injection": 21,
+        "nan": 288602
+      },
+      "nan_count": 24383020,
+      "inf_count": 250,
+      "validation_status": "QUARANTINE_NEEDED (Blank Labels Detected)"
+    },
+    "secondary_infilteration_audit": {
+      "filename": "Thursday-WorkingHours-Afternoon-Infilteration.pcap_ISCX.csv",
+      "size_bytes": 108723183,
+      "sha256": "d74238e054023c8bd4d8056650463cadb25c100fb0e26ebd4272c07b5c022c4b",
+      "row_count": 288602,
+      "column_count": 85,
+      "duplicate_columns": [
+        "Fwd Header Length"
+      ],
+      "blank_labels": 0,
+      "label_distribution": {
+        "BENIGN": 288566,
+        "Infiltration": 36
+      },
+      "nan_count": 18,
+      "inf_count": 396,
+      "validation_status": "VALID"
+    },
+    "findings": "Verification confirms MachineLearningCSV contains authentic labeled rows without silent contamination. Any archive with blank or concatenated labels is strictly documented and isolated."
+  }
+}
