@@ -1,37 +1,39 @@
 stages:
-  audit:
+  data_validation:
     cmd: python src/sentinel/data_validation.py
     deps:
       - src/sentinel/data_validation.py
+      - MachineLearningCSV/MachineLearningCVE
+      - GeneratedLabelledFlows/TrafficLabelling
     outs:
-      - reports/data_quality/dataset_manifest.json:
-          cache: false
-
+      - reports/data_quality/dataset_manifest.json
+      - docs/evidence/data_audit_summary.md
   preprocess:
     cmd: python src/sentinel/preprocess.py
     deps:
       - src/sentinel/preprocess.py
       - reports/data_quality/dataset_manifest.json
     outs:
-      - data/processed/feature_schema.json:
-          cache: false
-      - data/sample/demo_flows_sample.csv:
-          cache: false
-
+      - data/processed/X_train.npy
+      - data/processed/X_va.npy
+      - data/processed/X_test.npy
+      - data/processed/feature_schema.json
   train:
     cmd: python src/sentinel/train.py
     deps:
       - src/sentinel/train.py
-      - data/processed/feature_schema.json
+      - data/processed/X_train.npy
+      - data/processed/X_va.npy
     outs:
-      - reports/metrics/model_selection_manifest.json:
-          cache: false
-
+      - models/champion_model.joblib
+      - models/preprocessor.joblib
   evaluate:
     cmd: python src/sentinel/evaluate.py
     deps:
       - src/sentinel/evaluate.py
-      - reports/metrics/model_selection_manifest.json
+      - models/champion_model.joblib
+      - models/preprocessor.joblib
+      - data/processed/X_test.npy
     outs:
-      - reports/metrics/test_holdout_evaluation.json:
-          cache: false
+      - reports/metrics/histgradientboosting_eval.json
+      - reports/metrics/model_selection_manifest.json
