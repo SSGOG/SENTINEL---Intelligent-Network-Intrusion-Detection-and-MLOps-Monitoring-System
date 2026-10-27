@@ -19,6 +19,23 @@ This document records chronological development milestones, git commit SHAs, exe
 
 ---
 
+## [M3] Leakage-Free Preprocessing Pipeline & Feature Schema
+- **Date**: 2026-10-27
+- **Objective**: Implement train/val/test splitting before transform fitting, train SimpleImputer and StandardScaler strictly on training set, generate feature schema, and extract representative 500-flow demo sample.
+- **Commands Executed**:
+  - `python src/sentinel/preprocess.py`
+  - `pytest tests/test_preprocessing.py -v`
+- **Results**:
+  - Sampled 141,536 stratified flow records across all 8 files.
+  - Split counts: Train = 99,074, Validation = 21,231, Test = 21,231 (15% untouched holdout).
+  - Saved fitted pipeline to `models/preprocessor.joblib`, schema to `data/processed/feature_schema.json`, and demo sample to `data/sample/demo_flows_sample.csv`.
+  - Zero NaN or Inf values across all transformed splits.
+  - All 3 unit tests passed.
+- **Status**: Completed and Verified.
+
+
+---
+
 ## [M2] Dataset Audit & Integrity Verification
 - **Date**: 2026-10-27
 - **Objective**: Independently audit all 8 CIC-IDS2017 `MachineLearningCSV` files, compute SHA-256 hashes, verify labels, duplicate columns, and investigate the historical Thursday WebAttacks/Infiltration issue.
@@ -32,4 +49,21 @@ This document records chronological development milestones, git commit SHAs, exe
   - Documented complete manifest in `reports/data_quality/dataset_manifest.json` and summary in `docs/evidence/data_audit_summary.md`.
   - All 3 automated validation tests passed.
 - **Status**: Completed and Verified.
+
+---
+
+## [M3] Leakage-Free Preprocessing Pipeline & Feature Schema
+- **Date**: 2026-10-27
+- **Objective**: Implement train/val/test splitting before transform fitting, train SimpleImputer and StandardScaler strictly on training set, generate feature schema, and extract representative 500-flow demo sample.
+- **Commands Executed**:
+  - `python src/sentinel/preprocess.py`
+  - `pytest tests/test_preprocessing.py -v`
+- **Results**:
+  - Sampled 141,536 stratified flow records across all 8 files.
+  - Split counts: Train = 99,074, Validation = 21,231, Test = 21,231 (15% untouched holdout).
+  - Saved fitted pipeline to `models/preprocessor.joblib`, schema to `data/processed/feature_schema.json`, and demo sample to `data/sample/demo_flows_sample.csv`.
+  - Zero NaN or Inf values across all transformed splits.
+  - All 3 unit tests passed.
+- **Status**: Completed and Verified.
+
 
