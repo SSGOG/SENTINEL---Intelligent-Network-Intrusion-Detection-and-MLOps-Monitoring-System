@@ -24,7 +24,7 @@ os.environ["MLFLOW_ALLOW_FILE_STORE"] = "true"
 import mlflow.sklearn
 import numpy as np
 from sklearn.ensemble import HistGradientBoostingClassifier
-from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, confusion_matrix
+from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, confusion_matrix, precision_score, recall_score
 from sklearn.preprocessing import StandardScaler
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
@@ -80,7 +80,7 @@ def main():
     cm = confusion_matrix(y_va, y_va_pred)
     logger.info(f"Validation ACC={val_acc:.4f}, F1={val_f1:.4f}, AUC={val_auc:.4f}")
     logger.info(f"Confusion matrix:\n{cm}")
-    # Log to MLflow (local tracking dir "mlruns")
+    
     mlflow.set_tracking_uri("mlruns")
     mlflow.set_experiment("SENTINEL")
     with mlflow.start_run(run_name="xgboost-baseline") as run:
@@ -157,9 +157,33 @@ def main():
         random_state=42,
         n_jobs=-1,
     )
-    model = HistGradientBoostingClassifier(max_iter=200, learning_rate=0.1, random_state=42)
-    logger.info("Training HistGradientBoostingClassifier...")
+    # Train XGBoost classifier (already initialized above)
+    logger.info("Training XGBoost classifier...")
     model.fit(X_train_scaled, y_train)
+    # Test metrics
+    test_pred = model.predict(X_test_scaled)
+    test_acc = accuracy_score(y_test, test_pred)
+    test_f1 = f1_score(y_test, test_pred)
+    test_auc = roc_auc_score(y_test, model.predict_proba(X_test_scaled)[:, 1]) if hasattr(model, "predict_proba") else test_acc
+    eval_path = Path("reports/metrics/test_holdout_evaluation.json")
+    eval_path.parent.mkdir(parents=True, exist_ok=True)
+    # Compute macro-averaged F1 for consistency with test expectations
+    macro_f1 = f1_score(y_test, test_pred, average='macro')
+    # Compute binary precision and recall for test set
+    test_precision = precision_score(y_test, test_pred)
+    test_recall = recall_score(y_test, test_pred)
+    with open(eval_path, "w", encoding="utf-8") as f:
+        json.dump({
+            "accuracy": test_acc,
+            "f1_score": test_f1,
+            "macro_f1": macro_f1,
+            "precision": test_precision,
+            "recall": test_recall,
+            "auc": test_auc,
+            "samples": int(len(y_test))
+        }, f, indent=2)
+    logger.info(f"Test hold‑out evaluation written to {eval_path} – ACC={test_acc:.4f}")
+
 
     # Validation metrics
     y_va_pred = model.predict(X_va_scaled)
@@ -170,7 +194,7 @@ def main():
     logger.info(f"Validation ACC={val_acc:.4f}, F1={val_f1:.4f}, AUC={val_auc:.4f}")
     logger.info(f"Confusion matrix:\n{cm}")
 
-    # Log to MLflow (local tracking dir "mlruns")
+    
     # Set MLflow tracking to a relative local directory (Windows-friendly)
     mlflow.set_tracking_uri("mlruns")
     mlflow.set_experiment("SENTINEL")

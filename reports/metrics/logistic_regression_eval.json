@@ -1,7 +1,7 @@
 {
   "model_name": "Logistic Regression",
-  "run_id": "b94c6faf64514d868707589a5e6f7522",
-  "git_commit_sha": "86d10ca5eeacd2f99641042c5f7a541b9dfb3204",
+  "run_id": "3d3329ed8474475286f9517c249842e0",
+  "git_commit_sha": "06b589039b708d97a5a5c05f61d50e73cb419163",
   "metrics": {
     "accuracy": 0.9417832414865056,
     "precision": 0.7933293627159024,

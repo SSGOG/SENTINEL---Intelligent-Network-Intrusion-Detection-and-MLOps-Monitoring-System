@@ -6,7 +6,7 @@ import joblib
 import numpy as np
 import pytest
 
-PREPROCESSOR_PATH = Path("models/preprocessor.joblib")
+PREPROCESSOR_PATH = Path("models/preprocessor_bundle.joblib")
 SCHEMA_PATH = Path("data/processed/feature_schema.json")
 TRAIN_X = Path("data/processed/X_train.npy")
 VAL_X = Path("data/processed/X_val.npy")

@@ -1,0 +1,31 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.5, pytest-8.3.4, pluggy-1.5.0 -- C:\Users\K8IN\anaconda3\python.exe
+cachedir: .pytest_cache
+rootdir: E:\downloads_2\SENTINELOPS
+configfile: pytest.ini
+plugins: anyio-4.15.1, dash-2.4.1, hydra-core-1.3.8
+collecting ... collected 13 items
+
+tests/test_api.py::test_health_endpoint PASSED                           [  7%]
+tests/test_api.py::test_model_info_endpoint PASSED                       [ 15%]
+tests/test_api.py::test_predict_single_flow PASSED                       [ 23%]
+tests/test_api.py::test_predict_batch_flows PASSED                       [ 30%]
+tests/test_data_validation.py::test_manifest_exists PASSED               [ 38%]
+tests/test_data_validation.py::test_primary_dataset_integrity PASSED     [ 46%]
+tests/test_data_validation.py::test_secondary_thursday_quarantine_evidence PASSED [ 53%]
+tests/test_model_contract.py::test_champion_model_contract PASSED        [ 61%]
+tests/test_model_contract.py::test_evaluation_metrics_thresholds PASSED  [ 69%]
+tests/test_model_contract.py::test_shap_explanations_contract PASSED     [ 76%]
+tests/test_preprocessing.py::test_pipeline_assets_exist PASSED           [ 84%]
+tests/test_preprocessing.py::test_preprocessor_structure PASSED          [ 92%]
+tests/test_preprocessing.py::test_no_nan_or_inf_in_processed_splits PASSED [100%]
+
+============================== warnings summary ===============================
+tests/test_api.py::test_predict_single_flow
+  C:\Users\K8IN\anaconda3\Lib\site-packages\joblib\externals\loky\backend\context.py:136: UserWarning: Could not find the number of physical cores for the following reason:
+  [WinError 2] The system cannot find the file specified
+  Returning the number of logical cores instead. You can silence this warning by setting LOKY_MAX_CPU_COUNT to the number of cores you want to use.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 13 passed, 1 warning in 2.77s ========================

@@ -1,40 +1,9 @@
 {
-  "selected_model": "HistGradientBoosting",
-  "run_id": "0cc02a2fe3b8498cbdfa74633ef05c38",
-  "git_commit_sha": "86d10ca5eeacd2f99641042c5f7a541b9dfb3204",
-  "selection_criteria": "Max validation Macro-F1 with Class-Sensitive Penalization",
-  "selected_metrics": {
-    "accuracy": 0.9984456690688145,
-    "precision": 0.9947643979057592,
-    "recall": 0.9973753280839895,
-    "f1_score": 0.9960681520314548,
-    "macro_f1": 0.9975497647650303,
-    "roc_auc": 0.9999371767469527
-  },
-  "all_candidate_metrics": {
-    "Dummy Baseline": {
-      "accuracy": 0.8025999717394376,
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1_score": 0.0,
-      "macro_f1": 0.445245747432782,
-      "roc_auc": 0.5
-    },
-    "Logistic Regression": {
-      "accuracy": 0.9417832414865056,
-      "precision": 0.7933293627159024,
-      "recall": 0.9534717251252685,
-      "f1_score": 0.8660598179453837,
-      "macro_f1": 0.9144344946379743,
-      "roc_auc": 0.9827379162031762
-    },
-    "HistGradientBoosting": {
-      "accuracy": 0.9984456690688145,
-      "precision": 0.9947643979057592,
-      "recall": 0.9973753280839895,
-      "f1_score": 0.9960681520314548,
-      "macro_f1": 0.9975497647650303,
-      "roc_auc": 0.9999371767469527
-    }
-  }
+  "model_path": "models\\champion_model.joblib",
+  "preprocessor_path": "models\\preprocessor_bundle.joblib",
+  "validation_accuracy": 0.9992263507068823,
+  "validation_f1": 0.9980400404521331,
+  "validation_auc": 0.9999692890298564,
+  "git_commit": "c4379c5bc60fbf3b5269c440fa05592135b2bf76",
+  "dvc_rev": "usage: dvc [-q | -v] [-h] [-V] [--cd <path>] [--wait-for-lock] command ...\n\nData Version Control\n\noptions:\n  -q, --quiet          Be quiet.\n  -v, --verbose        Be verbose.\n  -h, --help           Show this help message and exit.\n  -V, --version        Show program's version.\n  --cd <path>          Change to directory before executing.\n  --wait-for-lock      Wait for the lock if it is already held by another process, instead of failing immediately.\n\nAvailable Commands:\n  command              Use `dvc command --help` for command-specific help.\n    add                Track data files or directories with DVC.\n    artifacts          DVC model registry artifact commands.\n    cache              Manage cache settings.\n    check-ignore       Check whether files or directories are excluded due to `.dvcignore`.\n    checkout           Checkout data files from cache.\n    commit             Record changes to files or directories tracked by DVC by storing the current versions in the cache.\n    completion         Generate shell tab completion.\n    config             Get or set config options.\n    dag                Visualize DVC project DAG.\n    data               Commands related to data management.\n    pull               Download tracked files or directories from remote storage.\n    push               Upload tracked files or directories to remote storage.\n    fetch              Download files or directories from remote storage to the cache.\n    status             Show changed stages, compare local cache and a remote storage.\n    destroy            Remove DVC files, local DVC config and data cache.\n    diff               Show added, modified, or deleted data between commits in the DVC repository, or between a commit and the workspace.\n    du                 Show disk usage.\n    experiments (exp)  Commands to run and compare experiments.\n    freeze             Freeze stages or .dvc files.\n    unfreeze           Unfreeze stages or .dvc files.\n    gc                 Garbage collect unused objects from cache or remote storage.\n    get                Download file or directory tracked by DVC or by Git.\n    get-url            Download or copy files from URL.\n    import             Download file or directory tracked by DVC or by Git into the workspace, and track it.\n    import-db          Snapshot a table or a SQL query result to a CSV/JSON format\n    import-url         Download or copy file from URL and take it under DVC control.\n    init               Initialize DVC repository.\n    install            Install DVC git hooks into the repository.\n    list (ls)          List repository contents, including files and directories tracked by DVC and by Git.\n    list-url (ls-url)  List directory contents from URL.\n    metrics            Commands to display and compare metrics.\n    move (mv)          Rename or move a DVC controlled data file or a directory.\n    params             Commands to display params.\n    plots              Commands to visualize and compare plot data.\n    queue              Commands to manage experiments queue.\n    remote             Set up and manage data remotes.\n    remove (rm)        Remove stages from dvc.yaml and/or stop tracking files or directories.\n    repro              Reproduce complete or partial pipelines by executing their stages.\n    root               Return the relative path to the root of the DVC project.\n    stage              Commands to list and create stages.\n    studio             Commands to authenticate DVC with Iterative Studio\n    unprotect          Unprotect tracked files or directories (when hardlinks or symlinks have been enabled with `dvc config cache.type`).\n    update             Update data artifact imported (via dvc import or dvc import-url) from an external DVC repository or URL.\n    version (doctor)   Display the DVC version and system/environment information."
 }

@@ -94,8 +94,11 @@ def main():
     X_train_scaled = scaler.fit_transform(X_train_imp)
     # Bundle preprocessing objects
     schema = build_feature_schema(list(X.columns))
+    # Add feature count for downstream validation
+    schema["feature_count"] = len(schema["feature_order"])
     SCHEMA_PATH.write_text(json.dumps(schema, indent=2), encoding="utf-8")
     logger.info(f"Feature schema written to {SCHEMA_PATH}")
+
     preprocessor_bundle = {
         "imputer": imputer,
         "scaler": scaler,

@@ -1,7 +1,7 @@
 {
   "model_name": "Dummy Baseline",
-  "run_id": "86e4df7110a7407da315684a53802f8e",
-  "git_commit_sha": "86d10ca5eeacd2f99641042c5f7a541b9dfb3204",
+  "run_id": "874b6a096b944cf495203a84a9e7b46a",
+  "git_commit_sha": "06b589039b708d97a5a5c05f61d50e73cb419163",
   "metrics": {
     "accuracy": 0.8025999717394376,
     "precision": 0.0,
