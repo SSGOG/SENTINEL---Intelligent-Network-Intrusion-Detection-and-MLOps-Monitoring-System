@@ -1,0 +1,18 @@
+# Exclude heavy data and caches
+*.pcap
+*.zip
+*.csv
+.dvc
+.dvcignore
+__pycache__
+*.pyc
+mlruns
+*.log
+*.db
+*.tmp
+# Keep only source, models, processed data, reports, requirements
+!src/
+!models/
+!data/processed/
+!reports/
+!requirements.txt
