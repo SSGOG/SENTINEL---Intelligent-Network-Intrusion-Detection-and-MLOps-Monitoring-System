@@ -15,7 +15,7 @@ stages:
       - reports/data_quality/dataset_manifest.json
     outs:
       - data/processed/X_train.npy
-      - data/processed/X_va.npy
+      - data/processed/X_val.npy
       - data/processed/X_test.npy
       - data/processed/feature_schema.json
   train:
@@ -23,7 +23,7 @@ stages:
     deps:
       - src/sentinel/train.py
       - data/processed/X_train.npy
-      - data/processed/X_va.npy
+      - data/processed/X_val.npy
     outs:
       - models/champion_model.joblib
       - models/preprocessor.joblib
