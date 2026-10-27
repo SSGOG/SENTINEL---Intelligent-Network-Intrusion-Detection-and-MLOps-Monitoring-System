@@ -1,5 +1,5 @@
 {
-  "feature_names": [
+  "feature_order": [
     "Destination Port",
     "Flow Duration",
     "Total Fwd Packets",
@@ -78,11 +78,5 @@
     "Idle Std",
     "Idle Max",
     "Idle Min"
-  ],
-  "feature_count": 78,
-  "target": "is_malicious",
-  "classes": [
-    0,
-    1
   ]
 }
