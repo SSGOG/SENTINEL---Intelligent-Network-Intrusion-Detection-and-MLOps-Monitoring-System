@@ -85,7 +85,7 @@ def audit_single_file(file_path: Path) -> Dict[str, Any]:
 
 def run_full_dataset_audit() -> Dict[str, Any]:
     """Execute independent audit across all 8 primary CSVs and compare with secondary copy."""
-    results = {"primary_machine_learning_csv": [], "thursday_investigation": {}}
+    results = {"primary_machine_learning_csv": [], "thursday_investigation": {"secondary_webattacks_audit": None, "secondary_infilteration_audit": None}}
     
     csv_files = sorted(list(PRIMARY_DIR.glob("*.csv")))
     logger.info(f"Discovered {len(csv_files)} files in {PRIMARY_DIR}")
