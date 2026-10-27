@@ -5,6 +5,7 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 import numpy as np
+import os
 
 # Page configuration
 st.set_page_config(
@@ -40,11 +41,36 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Imports from core service
-from src.sentinel.predict import engine
+import sys, os
+# Add the 'src' directory to PYTHONPATH so that the top‑level 'sentinel' package is discoverable
+src_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if src_dir not in sys.path:
+    sys.path.append(src_dir)
+from sentinel.predict import engine
 
+# UI theming & custom CSS
+st.markdown(
+    """
+    <style>
+    .main { background-color: #1e1e2e; color: #e0e0ff; }
+    .css-1d391kg { background-color: #111122; }
+    .css-1emrehy button, .stButton > button {
+        background-color: #00d26a !important;
+        color: #ffffff !important;
+        border-radius: 4px;
+    }
+    .metric-card { background-color: #292939 !important; border-left-color: #00d26a !important; }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Navigation Sidebar
 # Navigation Sidebar
 st.sidebar.title("🛡️ SENTINEL MLOps")
 st.sidebar.caption("Intelligent Network Intrusion Detection")
+# Removed duplicate caption line
+
 
 nav = st.sidebar.radio(
     "Navigation Console",
@@ -195,13 +221,21 @@ elif nav == "4. Model Performance & Evaluation":
         c4.metric("Test Macro-F1", f"{eval_data['macro_f1']*100:.2f}%")
         
         st.subheader("Confusion Matrix (21,231 Untouched Holdout Flows)")
-        cm = eval_data["confusion_matrix"]
-        cm_df = pd.DataFrame(
-            cm, 
-            index=["Actual BENIGN (0)", "Actual MALICIOUS (1)"], 
-            columns=["Predicted BENIGN (0)", "Predicted MALICIOUS (1)"]
-        )
-        st.table(cm_df)
+        if "confusion_matrix" in eval_data:
+            cm = eval_data["confusion_matrix"]
+            cm_df = pd.DataFrame(
+                cm,
+                index=["Actual BENIGN (0)", "Actual MALICIOUS (1)"],
+                columns=["Predicted BENIGN (0)", "Predicted MALICIOUS (1)"]
+            )
+            st.table(cm_df)
+        else:
+            # Show placeholder image when the matrix is missing
+            placeholder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "assets", "confusion_matrix_placeholder.png"))
+            if os.path.exists(placeholder_path):
+                st.image(placeholder_path, caption="Confusion Matrix (placeholder)", use_column_width=True)
+            else:
+                st.info("Confusion matrix not available and placeholder image missing.")
         
         st.subheader("Model Comparison Summary")
         comp_df = pd.DataFrame([
