@@ -1,0 +1,50 @@
+{
+  "model_name": "Logistic Regression",
+  "run_id": "b94c6faf64514d868707589a5e6f7522",
+  "git_commit_sha": "86d10ca5eeacd2f99641042c5f7a541b9dfb3204",
+  "metrics": {
+    "accuracy": 0.9417832414865056,
+    "precision": 0.7933293627159024,
+    "recall": 0.9534717251252685,
+    "f1_score": 0.8660598179453837,
+    "macro_f1": 0.9144344946379743,
+    "roc_auc": 0.9827379162031762
+  },
+  "confusion_matrix": [
+    [
+      15999,
+      1041
+    ],
+    [
+      195,
+      3996
+    ]
+  ],
+  "classification_report": {
+    "0": {
+      "precision": 0.9879585031493145,
+      "recall": 0.9389084507042254,
+      "f1-score": 0.9628091713305651,
+      "support": 17040.0
+    },
+    "1": {
+      "precision": 0.7933293627159024,
+      "recall": 0.9534717251252685,
+      "f1-score": 0.8660598179453837,
+      "support": 4191.0
+    },
+    "accuracy": 0.9417832414865056,
+    "macro avg": {
+      "precision": 0.8906439329326085,
+      "recall": 0.9461900879147469,
+      "f1-score": 0.9144344946379743,
+      "support": 21231.0
+    },
+    "weighted avg": {
+      "precision": 0.9495387053274299,
+      "recall": 0.9417832414865056,
+      "f1-score": 0.9437108462381392,
+      "support": 21231.0
+    }
+  }
+}

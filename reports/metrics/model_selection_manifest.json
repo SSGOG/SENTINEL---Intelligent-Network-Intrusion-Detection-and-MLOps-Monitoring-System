@@ -1,0 +1,40 @@
+{
+  "selected_model": "HistGradientBoosting",
+  "run_id": "0cc02a2fe3b8498cbdfa74633ef05c38",
+  "git_commit_sha": "86d10ca5eeacd2f99641042c5f7a541b9dfb3204",
+  "selection_criteria": "Max validation Macro-F1 with Class-Sensitive Penalization",
+  "selected_metrics": {
+    "accuracy": 0.9984456690688145,
+    "precision": 0.9947643979057592,
+    "recall": 0.9973753280839895,
+    "f1_score": 0.9960681520314548,
+    "macro_f1": 0.9975497647650303,
+    "roc_auc": 0.9999371767469527
+  },
+  "all_candidate_metrics": {
+    "Dummy Baseline": {
+      "accuracy": 0.8025999717394376,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "macro_f1": 0.445245747432782,
+      "roc_auc": 0.5
+    },
+    "Logistic Regression": {
+      "accuracy": 0.9417832414865056,
+      "precision": 0.7933293627159024,
+      "recall": 0.9534717251252685,
+      "f1_score": 0.8660598179453837,
+      "macro_f1": 0.9144344946379743,
+      "roc_auc": 0.9827379162031762
+    },
+    "HistGradientBoosting": {
+      "accuracy": 0.9984456690688145,
+      "precision": 0.9947643979057592,
+      "recall": 0.9973753280839895,
+      "f1_score": 0.9960681520314548,
+      "macro_f1": 0.9975497647650303,
+      "roc_auc": 0.9999371767469527
+    }
+  }
+}

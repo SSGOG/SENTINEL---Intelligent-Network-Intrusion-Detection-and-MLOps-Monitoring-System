@@ -1,0 +1,50 @@
+{
+  "model_name": "Dummy Baseline",
+  "run_id": "86e4df7110a7407da315684a53802f8e",
+  "git_commit_sha": "86d10ca5eeacd2f99641042c5f7a541b9dfb3204",
+  "metrics": {
+    "accuracy": 0.8025999717394376,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "macro_f1": 0.445245747432782,
+    "roc_auc": 0.5
+  },
+  "confusion_matrix": [
+    [
+      17040,
+      0
+    ],
+    [
+      4191,
+      0
+    ]
+  ],
+  "classification_report": {
+    "0": {
+      "precision": 0.8025999717394376,
+      "recall": 1.0,
+      "f1-score": 0.890491494865564,
+      "support": 17040.0
+    },
+    "1": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 4191.0
+    },
+    "accuracy": 0.8025999717394376,
+    "macro avg": {
+      "precision": 0.4012999858697188,
+      "recall": 0.5,
+      "f1-score": 0.445245747432782,
+      "support": 21231.0
+    },
+    "weighted avg": {
+      "precision": 0.644166714636146,
+      "recall": 0.8025999717394376,
+      "f1-score": 0.7147084486133113,
+      "support": 21231.0
+    }
+  }
+}

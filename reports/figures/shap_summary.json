@@ -1,0 +1,67 @@
+{
+  "method": "SHAP TreeExplainer",
+  "sample_size": 200,
+  "top_predictive_features": [
+    {
+      "feature": "Init_Win_bytes_forward",
+      "mean_abs_shap": 2.156892955319861
+    },
+    {
+      "feature": "Destination Port",
+      "mean_abs_shap": 1.413327055197905
+    },
+    {
+      "feature": "Bwd Packet Length Min",
+      "mean_abs_shap": 1.2439777497193598
+    },
+    {
+      "feature": "Bwd Packet Length Std",
+      "mean_abs_shap": 0.7182353003268755
+    },
+    {
+      "feature": "Init_Win_bytes_backward",
+      "mean_abs_shap": 0.5360080636620062
+    },
+    {
+      "feature": "Average Packet Size",
+      "mean_abs_shap": 0.3468263363157973
+    },
+    {
+      "feature": "Packet Length Std",
+      "mean_abs_shap": 0.3215552424762288
+    },
+    {
+      "feature": "Total Fwd Packets",
+      "mean_abs_shap": 0.2690936847033268
+    },
+    {
+      "feature": "Idle Max",
+      "mean_abs_shap": 0.25924559881207565
+    },
+    {
+      "feature": "Bwd Header Length",
+      "mean_abs_shap": 0.2472406431290184
+    },
+    {
+      "feature": "PSH Flag Count",
+      "mean_abs_shap": 0.2179817536763361
+    },
+    {
+      "feature": "Fwd Header Length",
+      "mean_abs_shap": 0.21215269889551536
+    },
+    {
+      "feature": "Active Min",
+      "mean_abs_shap": 0.19398474692494233
+    },
+    {
+      "feature": "Fwd Packet Length Std",
+      "mean_abs_shap": 0.17289352577135145
+    },
+    {
+      "feature": "min_seg_size_forward",
+      "mean_abs_shap": 0.14793197702016456
+    }
+  ],
+  "interpretability_note": "Attributions highlight flow duration, packet length variance, and header lengths as critical indicators. Explanations assist security analysts in triage but do not prove causality or eliminate historical bias."
+}

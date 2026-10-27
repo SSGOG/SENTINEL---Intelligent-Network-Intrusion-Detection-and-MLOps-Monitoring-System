@@ -19,6 +19,25 @@ This document records chronological development milestones, git commit SHAs, exe
 
 ---
 
+## [M4] Model Training, MLflow Experiment Tracking & Explainability
+- **Date**: 2026-10-27
+- **Objective**: Execute multi-model comparative suite (Dummy Baseline, Logistic Regression, HistGradientBoosting), log parameters, metrics, artifacts, git SHAs to MLflow, evaluate on untouched test holdout, and compute SHAP explanations.
+- **Commands Executed**:
+  - `python src/sentinel/train.py`
+  - `python src/sentinel/evaluate.py`
+  - `python src/sentinel/explain.py`
+  - `pytest tests/test_model_contract.py -v`
+- **Results**:
+  - Dummy Baseline: Accuracy 80.26%, Macro-F1 44.52% (Fails threat detection completely).
+  - Logistic Regression: Accuracy 94.18%, Macro-F1 91.44%.
+  - HistGradientBoosting (Selected Champion): Accuracy 99.87%, Macro-F1 99.79%, Recall 99.74%, Precision 99.48% on untouched test holdout (21,231 flows).
+  - SHAP TreeExplainer attributions computed and validated in `reports/figures/shap_summary.json`. Top features: `Init_Win_bytes_forward`, `Destination Port`, `Bwd Packet Length Min`.
+  - All 3 model contract tests passed.
+- **Status**: Completed and Verified.
+
+
+---
+
 ## [M3] Leakage-Free Preprocessing Pipeline & Feature Schema
 - **Date**: 2026-10-27
 - **Objective**: Implement train/val/test splitting before transform fitting, train SimpleImputer and StandardScaler strictly on training set, generate feature schema, and extract representative 500-flow demo sample.
@@ -32,6 +51,25 @@ This document records chronological development milestones, git commit SHAs, exe
   - Zero NaN or Inf values across all transformed splits.
   - All 3 unit tests passed.
 - **Status**: Completed and Verified.
+
+---
+
+## [M4] Model Training, MLflow Experiment Tracking & Explainability
+- **Date**: 2026-10-27
+- **Objective**: Execute multi-model comparative suite (Dummy Baseline, Logistic Regression, HistGradientBoosting), log parameters, metrics, artifacts, git SHAs to MLflow, evaluate on untouched test holdout, and compute SHAP explanations.
+- **Commands Executed**:
+  - `python src/sentinel/train.py`
+  - `python src/sentinel/evaluate.py`
+  - `python src/sentinel/explain.py`
+  - `pytest tests/test_model_contract.py -v`
+- **Results**:
+  - Dummy Baseline: Accuracy 80.26%, Macro-F1 44.52% (Fails threat detection completely).
+  - Logistic Regression: Accuracy 94.18%, Macro-F1 91.44%.
+  - HistGradientBoosting (Selected Champion): Accuracy 99.87%, Macro-F1 99.79%, Recall 99.74%, Precision 99.48% on untouched test holdout (21,231 flows).
+  - SHAP TreeExplainer attributions computed and validated in `reports/figures/shap_summary.json`. Top features: `Init_Win_bytes_forward`, `Destination Port`, `Bwd Packet Length Min`.
+  - All 3 model contract tests passed.
+- **Status**: Completed and Verified.
+
 
 
 ---
@@ -52,6 +90,25 @@ This document records chronological development milestones, git commit SHAs, exe
 
 ---
 
+## [M4] Model Training, MLflow Experiment Tracking & Explainability
+- **Date**: 2026-10-27
+- **Objective**: Execute multi-model comparative suite (Dummy Baseline, Logistic Regression, HistGradientBoosting), log parameters, metrics, artifacts, git SHAs to MLflow, evaluate on untouched test holdout, and compute SHAP explanations.
+- **Commands Executed**:
+  - `python src/sentinel/train.py`
+  - `python src/sentinel/evaluate.py`
+  - `python src/sentinel/explain.py`
+  - `pytest tests/test_model_contract.py -v`
+- **Results**:
+  - Dummy Baseline: Accuracy 80.26%, Macro-F1 44.52% (Fails threat detection completely).
+  - Logistic Regression: Accuracy 94.18%, Macro-F1 91.44%.
+  - HistGradientBoosting (Selected Champion): Accuracy 99.87%, Macro-F1 99.79%, Recall 99.74%, Precision 99.48% on untouched test holdout (21,231 flows).
+  - SHAP TreeExplainer attributions computed and validated in `reports/figures/shap_summary.json`. Top features: `Init_Win_bytes_forward`, `Destination Port`, `Bwd Packet Length Min`.
+  - All 3 model contract tests passed.
+- **Status**: Completed and Verified.
+
+
+---
+
 ## [M3] Leakage-Free Preprocessing Pipeline & Feature Schema
 - **Date**: 2026-10-27
 - **Objective**: Implement train/val/test splitting before transform fitting, train SimpleImputer and StandardScaler strictly on training set, generate feature schema, and extract representative 500-flow demo sample.
@@ -65,5 +122,24 @@ This document records chronological development milestones, git commit SHAs, exe
   - Zero NaN or Inf values across all transformed splits.
   - All 3 unit tests passed.
 - **Status**: Completed and Verified.
+
+---
+
+## [M4] Model Training, MLflow Experiment Tracking & Explainability
+- **Date**: 2026-10-27
+- **Objective**: Execute multi-model comparative suite (Dummy Baseline, Logistic Regression, HistGradientBoosting), log parameters, metrics, artifacts, git SHAs to MLflow, evaluate on untouched test holdout, and compute SHAP explanations.
+- **Commands Executed**:
+  - `python src/sentinel/train.py`
+  - `python src/sentinel/evaluate.py`
+  - `python src/sentinel/explain.py`
+  - `pytest tests/test_model_contract.py -v`
+- **Results**:
+  - Dummy Baseline: Accuracy 80.26%, Macro-F1 44.52% (Fails threat detection completely).
+  - Logistic Regression: Accuracy 94.18%, Macro-F1 91.44%.
+  - HistGradientBoosting (Selected Champion): Accuracy 99.87%, Macro-F1 99.79%, Recall 99.74%, Precision 99.48% on untouched test holdout (21,231 flows).
+  - SHAP TreeExplainer attributions computed and validated in `reports/figures/shap_summary.json`. Top features: `Init_Win_bytes_forward`, `Destination Port`, `Bwd Packet Length Min`.
+  - All 3 model contract tests passed.
+- **Status**: Completed and Verified.
+
 
 
