@@ -43,7 +43,10 @@ def load_data():
     y_val = np.load(DATA_DIR / "y_val.npy")
     X_test = np.load(DATA_DIR / "X_test.npy")
     y_test = np.load(DATA_DIR / "y_test.npy")
-    return X_train, y_train, X_va, y_va, X_test, y_test
+    # Alias for compatibility with older variable names
+    X_va = X_val
+    y_va = y_val
+    return X_train, y_train, X_val, y_val, X_test, y_test
 
 def main():
     logger.info("Loading data...")
