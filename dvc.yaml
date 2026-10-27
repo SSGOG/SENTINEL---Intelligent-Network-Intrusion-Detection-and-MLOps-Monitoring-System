@@ -1,0 +1,37 @@
+stages:
+  audit:
+    cmd: python src/sentinel/data_validation.py
+    deps:
+      - src/sentinel/data_validation.py
+    outs:
+      - reports/data_quality/dataset_manifest.json:
+          cache: false
+
+  preprocess:
+    cmd: python src/sentinel/preprocess.py
+    deps:
+      - src/sentinel/preprocess.py
+      - reports/data_quality/dataset_manifest.json
+    outs:
+      - data/processed/feature_schema.json:
+          cache: false
+      - data/sample/demo_flows_sample.csv:
+          cache: false
+
+  train:
+    cmd: python src/sentinel/train.py
+    deps:
+      - src/sentinel/train.py
+      - data/processed/feature_schema.json
+    outs:
+      - reports/metrics/model_selection_manifest.json:
+          cache: false
+
+  evaluate:
+    cmd: python src/sentinel/evaluate.py
+    deps:
+      - src/sentinel/evaluate.py
+      - reports/metrics/model_selection_manifest.json
+    outs:
+      - reports/metrics/test_holdout_evaluation.json:
+          cache: false

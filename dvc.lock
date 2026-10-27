@@ -1,0 +1,66 @@
+schema: '2.0'
+stages:
+  audit:
+    cmd: python src/sentinel/data_validation.py
+    deps:
+    - path: src/sentinel/data_validation.py
+      hash: md5
+      md5: 777053ee97c8df2d066431c0f6e88d1d
+      size: 6530
+    outs:
+    - path: reports/data_quality/dataset_manifest.json
+      hash: md5
+      md5: 336df87e1e92bc70b5037f4b1e991842
+      size: 6112
+  preprocess:
+    cmd: python src/sentinel/preprocess.py
+    deps:
+    - path: reports/data_quality/dataset_manifest.json
+      hash: md5
+      md5: 336df87e1e92bc70b5037f4b1e991842
+      size: 6112
+    - path: src/sentinel/preprocess.py
+      hash: md5
+      md5: bbc9904f9661d160a1b3a06ae8e69a3f
+      size: 6742
+    outs:
+    - path: data/processed/feature_schema.json
+      hash: md5
+      md5: 4e99c62929b9d9fcba7c6bca53f7a5b7
+      size: 2048
+    - path: data/sample/demo_flows_sample.csv
+      hash: md5
+      md5: 50c16242f9ca9fb4f63b48b8fd8ad715
+      size: 176410
+  train:
+    cmd: python src/sentinel/train.py
+    deps:
+    - path: data/processed/feature_schema.json
+      hash: md5
+      md5: 4e99c62929b9d9fcba7c6bca53f7a5b7
+      size: 2048
+    - path: src/sentinel/train.py
+      hash: md5
+      md5: f58a6870b2593a875b0bdac60a58f40a
+      size: 7911
+    outs:
+    - path: reports/metrics/model_selection_manifest.json
+      hash: md5
+      md5: d9ecc599f7b2feddf46e7c2a98061094
+      size: 1275
+  evaluate:
+    cmd: python src/sentinel/evaluate.py
+    deps:
+    - path: reports/metrics/model_selection_manifest.json
+      hash: md5
+      md5: d9ecc599f7b2feddf46e7c2a98061094
+      size: 1275
+    - path: src/sentinel/evaluate.py
+      hash: md5
+      md5: ed76bf13ca758681bee51e9928344c75
+      size: 3975
+    outs:
+    - path: reports/metrics/test_holdout_evaluation.json
+      hash: md5
+      md5: 73df0e4e77a0b695ef9a6934cfce64b1
+      size: 1132

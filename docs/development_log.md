@@ -19,6 +19,23 @@ This document records chronological development milestones, git commit SHAs, exe
 
 ---
 
+## [M5] DVC Reproducible Pipeline & MLflow Lineage Verification
+- **Date**: 2026-10-27
+- **Objective**: Configure DVC multi-stage pipeline (`audit` -> `preprocess` -> `train` -> `evaluate`), verify dependencies, outputs, DAG representation, execute `dvc repro`, and document MLflow provenance links.
+- **Commands Executed**:
+  - `python -m dvc dag`
+  - `python -m dvc repro`
+  - `python -m dvc status`
+- **Results**:
+  - Full pipeline reproduced from start to finish via `dvc repro`.
+  - Generated and validated `dvc.lock`.
+  - `dvc status` verified: "Data and pipelines are up to date."
+  - Saved evidence to `docs/evidence/dvc_pipeline_results.txt` and `docs/evidence/mlflow_experiment_summary.md`.
+- **Status**: Completed and Verified.
+
+
+---
+
 ## [M4] Model Training, MLflow Experiment Tracking & Explainability
 - **Date**: 2026-10-27
 - **Objective**: Execute multi-model comparative suite (Dummy Baseline, Logistic Regression, HistGradientBoosting), log parameters, metrics, artifacts, git SHAs to MLflow, evaluate on untouched test holdout, and compute SHAP explanations.
@@ -34,6 +51,23 @@ This document records chronological development milestones, git commit SHAs, exe
   - SHAP TreeExplainer attributions computed and validated in `reports/figures/shap_summary.json`. Top features: `Init_Win_bytes_forward`, `Destination Port`, `Bwd Packet Length Min`.
   - All 3 model contract tests passed.
 - **Status**: Completed and Verified.
+
+---
+
+## [M5] DVC Reproducible Pipeline & MLflow Lineage Verification
+- **Date**: 2026-10-27
+- **Objective**: Configure DVC multi-stage pipeline (`audit` -> `preprocess` -> `train` -> `evaluate`), verify dependencies, outputs, DAG representation, execute `dvc repro`, and document MLflow provenance links.
+- **Commands Executed**:
+  - `python -m dvc dag`
+  - `python -m dvc repro`
+  - `python -m dvc status`
+- **Results**:
+  - Full pipeline reproduced from start to finish via `dvc repro`.
+  - Generated and validated `dvc.lock`.
+  - `dvc status` verified: "Data and pipelines are up to date."
+  - Saved evidence to `docs/evidence/dvc_pipeline_results.txt` and `docs/evidence/mlflow_experiment_summary.md`.
+- **Status**: Completed and Verified.
+
 
 
 ---
@@ -54,6 +88,23 @@ This document records chronological development milestones, git commit SHAs, exe
 
 ---
 
+## [M5] DVC Reproducible Pipeline & MLflow Lineage Verification
+- **Date**: 2026-10-27
+- **Objective**: Configure DVC multi-stage pipeline (`audit` -> `preprocess` -> `train` -> `evaluate`), verify dependencies, outputs, DAG representation, execute `dvc repro`, and document MLflow provenance links.
+- **Commands Executed**:
+  - `python -m dvc dag`
+  - `python -m dvc repro`
+  - `python -m dvc status`
+- **Results**:
+  - Full pipeline reproduced from start to finish via `dvc repro`.
+  - Generated and validated `dvc.lock`.
+  - `dvc status` verified: "Data and pipelines are up to date."
+  - Saved evidence to `docs/evidence/dvc_pipeline_results.txt` and `docs/evidence/mlflow_experiment_summary.md`.
+- **Status**: Completed and Verified.
+
+
+---
+
 ## [M4] Model Training, MLflow Experiment Tracking & Explainability
 - **Date**: 2026-10-27
 - **Objective**: Execute multi-model comparative suite (Dummy Baseline, Logistic Regression, HistGradientBoosting), log parameters, metrics, artifacts, git SHAs to MLflow, evaluate on untouched test holdout, and compute SHAP explanations.
@@ -69,6 +120,23 @@ This document records chronological development milestones, git commit SHAs, exe
   - SHAP TreeExplainer attributions computed and validated in `reports/figures/shap_summary.json`. Top features: `Init_Win_bytes_forward`, `Destination Port`, `Bwd Packet Length Min`.
   - All 3 model contract tests passed.
 - **Status**: Completed and Verified.
+
+---
+
+## [M5] DVC Reproducible Pipeline & MLflow Lineage Verification
+- **Date**: 2026-10-27
+- **Objective**: Configure DVC multi-stage pipeline (`audit` -> `preprocess` -> `train` -> `evaluate`), verify dependencies, outputs, DAG representation, execute `dvc repro`, and document MLflow provenance links.
+- **Commands Executed**:
+  - `python -m dvc dag`
+  - `python -m dvc repro`
+  - `python -m dvc status`
+- **Results**:
+  - Full pipeline reproduced from start to finish via `dvc repro`.
+  - Generated and validated `dvc.lock`.
+  - `dvc status` verified: "Data and pipelines are up to date."
+  - Saved evidence to `docs/evidence/dvc_pipeline_results.txt` and `docs/evidence/mlflow_experiment_summary.md`.
+- **Status**: Completed and Verified.
+
 
 
 
@@ -90,6 +158,23 @@ This document records chronological development milestones, git commit SHAs, exe
 
 ---
 
+## [M5] DVC Reproducible Pipeline & MLflow Lineage Verification
+- **Date**: 2026-10-27
+- **Objective**: Configure DVC multi-stage pipeline (`audit` -> `preprocess` -> `train` -> `evaluate`), verify dependencies, outputs, DAG representation, execute `dvc repro`, and document MLflow provenance links.
+- **Commands Executed**:
+  - `python -m dvc dag`
+  - `python -m dvc repro`
+  - `python -m dvc status`
+- **Results**:
+  - Full pipeline reproduced from start to finish via `dvc repro`.
+  - Generated and validated `dvc.lock`.
+  - `dvc status` verified: "Data and pipelines are up to date."
+  - Saved evidence to `docs/evidence/dvc_pipeline_results.txt` and `docs/evidence/mlflow_experiment_summary.md`.
+- **Status**: Completed and Verified.
+
+
+---
+
 ## [M4] Model Training, MLflow Experiment Tracking & Explainability
 - **Date**: 2026-10-27
 - **Objective**: Execute multi-model comparative suite (Dummy Baseline, Logistic Regression, HistGradientBoosting), log parameters, metrics, artifacts, git SHAs to MLflow, evaluate on untouched test holdout, and compute SHAP explanations.
@@ -105,6 +190,23 @@ This document records chronological development milestones, git commit SHAs, exe
   - SHAP TreeExplainer attributions computed and validated in `reports/figures/shap_summary.json`. Top features: `Init_Win_bytes_forward`, `Destination Port`, `Bwd Packet Length Min`.
   - All 3 model contract tests passed.
 - **Status**: Completed and Verified.
+
+---
+
+## [M5] DVC Reproducible Pipeline & MLflow Lineage Verification
+- **Date**: 2026-10-27
+- **Objective**: Configure DVC multi-stage pipeline (`audit` -> `preprocess` -> `train` -> `evaluate`), verify dependencies, outputs, DAG representation, execute `dvc repro`, and document MLflow provenance links.
+- **Commands Executed**:
+  - `python -m dvc dag`
+  - `python -m dvc repro`
+  - `python -m dvc status`
+- **Results**:
+  - Full pipeline reproduced from start to finish via `dvc repro`.
+  - Generated and validated `dvc.lock`.
+  - `dvc status` verified: "Data and pipelines are up to date."
+  - Saved evidence to `docs/evidence/dvc_pipeline_results.txt` and `docs/evidence/mlflow_experiment_summary.md`.
+- **Status**: Completed and Verified.
+
 
 
 ---
@@ -125,6 +227,23 @@ This document records chronological development milestones, git commit SHAs, exe
 
 ---
 
+## [M5] DVC Reproducible Pipeline & MLflow Lineage Verification
+- **Date**: 2026-10-27
+- **Objective**: Configure DVC multi-stage pipeline (`audit` -> `preprocess` -> `train` -> `evaluate`), verify dependencies, outputs, DAG representation, execute `dvc repro`, and document MLflow provenance links.
+- **Commands Executed**:
+  - `python -m dvc dag`
+  - `python -m dvc repro`
+  - `python -m dvc status`
+- **Results**:
+  - Full pipeline reproduced from start to finish via `dvc repro`.
+  - Generated and validated `dvc.lock`.
+  - `dvc status` verified: "Data and pipelines are up to date."
+  - Saved evidence to `docs/evidence/dvc_pipeline_results.txt` and `docs/evidence/mlflow_experiment_summary.md`.
+- **Status**: Completed and Verified.
+
+
+---
+
 ## [M4] Model Training, MLflow Experiment Tracking & Explainability
 - **Date**: 2026-10-27
 - **Objective**: Execute multi-model comparative suite (Dummy Baseline, Logistic Regression, HistGradientBoosting), log parameters, metrics, artifacts, git SHAs to MLflow, evaluate on untouched test holdout, and compute SHAP explanations.
@@ -140,6 +259,23 @@ This document records chronological development milestones, git commit SHAs, exe
   - SHAP TreeExplainer attributions computed and validated in `reports/figures/shap_summary.json`. Top features: `Init_Win_bytes_forward`, `Destination Port`, `Bwd Packet Length Min`.
   - All 3 model contract tests passed.
 - **Status**: Completed and Verified.
+
+---
+
+## [M5] DVC Reproducible Pipeline & MLflow Lineage Verification
+- **Date**: 2026-10-27
+- **Objective**: Configure DVC multi-stage pipeline (`audit` -> `preprocess` -> `train` -> `evaluate`), verify dependencies, outputs, DAG representation, execute `dvc repro`, and document MLflow provenance links.
+- **Commands Executed**:
+  - `python -m dvc dag`
+  - `python -m dvc repro`
+  - `python -m dvc status`
+- **Results**:
+  - Full pipeline reproduced from start to finish via `dvc repro`.
+  - Generated and validated `dvc.lock`.
+  - `dvc status` verified: "Data and pipelines are up to date."
+  - Saved evidence to `docs/evidence/dvc_pipeline_results.txt` and `docs/evidence/mlflow_experiment_summary.md`.
+- **Status**: Completed and Verified.
+
 
 
 
