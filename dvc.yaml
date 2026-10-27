@@ -27,6 +27,7 @@ stages:
     outs:
       - models/champion_model.joblib
       - models/preprocessor.joblib
+      - reports/metrics/model_selection_manifest.json
   evaluate:
     cmd: python src/sentinel/evaluate.py
     deps:
@@ -36,4 +37,3 @@ stages:
       - data/processed/X_test.npy
     outs:
       - reports/metrics/histgradientboosting_eval.json
-      - reports/metrics/model_selection_manifest.json

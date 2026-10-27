@@ -1,50 +1,47 @@
 {
-  "model_name": "HistGradientBoosting",
-  "run_id": "0cc02a2fe3b8498cbdfa74633ef05c38",
-  "git_commit_sha": "86d10ca5eeacd2f99641042c5f7a541b9dfb3204",
-  "metrics": {
-    "accuracy": 0.9984456690688145,
-    "precision": 0.9947643979057592,
-    "recall": 0.9973753280839895,
-    "f1_score": 0.9960681520314548,
-    "macro_f1": 0.9975497647650303,
-    "roc_auc": 0.9999371767469527
-  },
+  "dataset_split": "Untouched Test Holdout (15%)",
+  "sample_count": 283075,
+  "accuracy": 0.8029992051576438,
+  "precision": 0.0,
+  "recall": 0.0,
+  "f1_score": 0.0,
+  "macro_f1": 0.44536858522210726,
+  "roc_auc": 0.5938431099182636,
   "confusion_matrix": [
     [
-      17018,
-      22
+      227309,
+      1
     ],
     [
-      11,
-      4180
+      55765,
+      0
     ]
   ],
   "classification_report": {
     "0": {
-      "precision": 0.9993540431029421,
-      "recall": 0.9987089201877934,
-      "f1-score": 0.9990313774986058,
-      "support": 17040.0
+      "precision": 0.8030020418689106,
+      "recall": 0.9999956007214816,
+      "f1-score": 0.8907371704442145,
+      "support": 227310.0
     },
     "1": {
-      "precision": 0.9947643979057592,
-      "recall": 0.9973753280839895,
-      "f1-score": 0.9960681520314548,
-      "support": 4191.0
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 55765.0
     },
-    "accuracy": 0.9984456690688145,
+    "accuracy": 0.8029992051576438,
     "macro avg": {
-      "precision": 0.9970592205043507,
-      "recall": 0.9980421241358914,
-      "f1-score": 0.9975497647650303,
-      "support": 21231.0
+      "precision": 0.4015010209344553,
+      "recall": 0.4999978003607408,
+      "f1-score": 0.44536858522210726,
+      "support": 283075.0
     },
     "weighted avg": {
-      "precision": 0.9984480470113123,
-      "recall": 0.9984456690688145,
-      "f1-score": 0.9984464367076478,
-      "support": 21231.0
+      "precision": 0.644812838071967,
+      "recall": 0.8029992051576438,
+      "f1-score": 0.7152643865183235,
+      "support": 283075.0
     }
   }
 }

@@ -51,7 +51,7 @@ def evaluate_on_untouched_holdout():
         "classification_report": class_rep
     }
     
-    with open(REPORTS_DIR / "test_holdout_evaluation.json", "w", encoding="utf-8") as f:
+    with open(REPORTS_DIR / "histgradientboosting_eval.json", "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2)
         
     with open(EVIDENCE_DIR / "model_evaluation_summary.md", "w", encoding="utf-8") as f:

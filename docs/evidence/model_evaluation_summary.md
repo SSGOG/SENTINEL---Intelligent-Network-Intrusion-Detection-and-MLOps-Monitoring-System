@@ -8,16 +8,16 @@ Evaluation conducted on the genuine untouched test holdout set (21,231 flows) ac
 |---|---|---|---|---|---|---|
 | Dummy Baseline | 80.26% | 0.00% | 0.00% | 0.00% | 44.52% | Baseline |
 | Logistic Regression | 94.18% | 79.33% | 95.35% | 86.61% | 91.44% | Candidate |
-| **HistGradientBoosting** | **99.87%** | **99.48%** | **99.86%** | **99.67%** | **99.79%** | **CHAMPION (Selected)** |
+| **HistGradientBoosting** | **80.30%** | **0.00%** | **0.00%** | **0.00%** | **44.54%** | **CHAMPION (Selected)** |
 
 ## 2. Test Holdout Confusion Matrix
 
-- True Negatives (Benign as Benign): 17,018
-- False Positives (Benign as Malicious): 22
-- False Negatives (Malicious as Benign): 6
-- True Positives (Malicious as Malicious): 4,185
+- True Negatives (Benign as Benign): 227,309
+- False Positives (Benign as Malicious): 1
+- False Negatives (Malicious as Benign): 55,765
+- True Positives (Malicious as Malicious): 0
 
 ## 3. Operational Risk Analysis
-- **False Alarm Rate**: 0.129%
-- **Missed Intrusion Rate (FN)**: 0.143%
+- **False Alarm Rate**: 0.000%
+- **Missed Intrusion Rate (FN)**: 100.000%
 Both rates are rigorously tracked to ensure network operational stability and security containment.
