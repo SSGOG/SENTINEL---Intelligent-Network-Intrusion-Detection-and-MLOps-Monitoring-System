@@ -1,0 +1,7 @@
+[core]
+    no_scm = True
+    analytics = false
+    check_update = false
+    remote = localremote
+['remote "localremote"']
+    url = E:\sentinel_dvc_remote

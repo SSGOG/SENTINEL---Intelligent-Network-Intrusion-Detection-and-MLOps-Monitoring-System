@@ -1,0 +1,55 @@
+# Byte-compiled / optimized / C-extensions
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Raw dataset files and large archives (Preserved locally, excluded from Git)
+*.pcap
+*.zip
+*.md5
+MachineLearningCSV/
+GeneratedLabelledFlows/
+data/raw/
+data/processed/
+data/quarantine/
+
+# Artifacts and models (tracked via DVC / local storage)
+models/*.pkl
+models/*.joblib
+models/*.onnx
+!models/.gitkeep
+
+# MLflow tracking local stores
+mlruns/
+mlruns.db
+.mlflow/
+
+# DVC local storage & cache
+.dvc/cache/
+.dvc/tmp/
+.dvc/config.local
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Secrets & Environment variables
+.env
+*.pem
+*.key
+aws_credentials.json
+
+# Temporary logs & test outputs
+*.log
+.pytest_cache/
+.coverage
+htmlcov/
