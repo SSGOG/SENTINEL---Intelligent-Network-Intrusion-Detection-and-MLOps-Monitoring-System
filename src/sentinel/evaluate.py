@@ -1,4 +1,4 @@
-"""Evaluate the champion model on the untouched test holdout set."""
+"""Evaluate the champion model on the held-out test split."""
 
 import json
 import logging
@@ -16,15 +16,22 @@ REPORTS_DIR = Path("reports/metrics")
 EVIDENCE_DIR = Path("docs/evidence")
 EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
 
-def evaluate_on_untouched_holdout():
+def evaluate_on_test_holdout():
     model_path = MODELS_DIR / "champion_model.joblib"
-    assert model_path.exists(), f"Champion model not found at {model_path}"
+    if not model_path.exists():
+        raise FileNotFoundError(f"Champion model not found at {model_path}")
     model = joblib.load(model_path)
     
     X_test = np.load(PROCESSED_DIR / "X_test.npy")
     y_test = np.load(PROCESSED_DIR / "y_test.npy")
     
-    logger.info(f"Evaluating champion model on untouched test holdout: {len(X_test):,} flows")
+    logger.info(f"Evaluating champion model on held-out test split: {len(X_test):,} flows")
+
+    expected_features = getattr(model, "n_features_in_", X_test.shape[1])
+    if X_test.shape[1] != expected_features:
+        raise ValueError(
+            f"Test data has {X_test.shape[1]} features; model expects {expected_features}"
+        )
     
     y_pred = model.predict(X_test)
     y_prob = model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
@@ -39,42 +46,52 @@ def evaluate_on_untouched_holdout():
     class_rep = classification_report(y_test, y_pred, output_dict=True, zero_division=0)
     
     results = {
-        "dataset_split": "Untouched Test Holdout (15%)",
-        "sample_count": len(X_test),
+        "model_name": type(model).__name__,
+        "dataset_split": "Held-Out Test Split (10%)",
+        "sample_count": int(len(X_test)),
         "accuracy": acc,
         "precision": prec,
         "recall": rec,
         "f1_score": f1,
         "macro_f1": macro_f1,
-        "roc_auc": auc,
+        "auc": auc,
         "confusion_matrix": cm,
         "classification_report": class_rep
     }
     
-    with open(REPORTS_DIR / "histgradientboosting_eval.json", "w", encoding="utf-8") as f:
-        json.dump(results, f, indent=2)
+    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    for report_path in (
+        REPORTS_DIR / "test_holdout_evaluation.json",
+        REPORTS_DIR / "histgradientboosting_eval.json",
+    ):
+        with open(report_path, "w", encoding="utf-8") as f:
+            json.dump(results, f, indent=2)
         
     with open(EVIDENCE_DIR / "model_evaluation_summary.md", "w", encoding="utf-8") as f:
-        f.write("# Model Evaluation & Comparison Summary\n\n")
-        f.write("Evaluation conducted on the genuine untouched test holdout set (21,231 flows) across all 8 CIC-IDS2017 files.\n\n")
-        f.write("## 1. Candidate Comparison Table\n\n")
-        f.write("| Model | Accuracy | Precision | Recall | F1-Score | Macro-F1 | Status |\n")
-        f.write("|---|---|---|---|---|---|---|\n")
-        f.write("| Dummy Baseline | 80.26% | 0.00% | 0.00% | 0.00% | 44.52% | Baseline |\n")
-        f.write("| Logistic Regression | 94.18% | 79.33% | 95.35% | 86.61% | 91.44% | Candidate |\n")
-        f.write(f"| **HistGradientBoosting** | **{acc*100:.2f}%** | **{prec*100:.2f}%** | **{rec*100:.2f}%** | **{f1*100:.2f}%** | **{macro_f1*100:.2f}%** | **CHAMPION (Selected)** |\n\n")
-        f.write("## 2. Test Holdout Confusion Matrix\n\n")
+        f.write("# Champion Model Holdout Evaluation\n\n")
+        f.write(
+            f"Model: `{type(model).__name__}`. Evaluated on the held-out "
+            f"10% test split ({len(X_test):,} flows) using the raw imputed feature "
+            "values consumed during training and serving.\n\n"
+        )
+        f.write("| Accuracy | Precision | Recall | F1-Score | Macro-F1 | ROC-AUC |\n")
+        f.write("|---:|---:|---:|---:|---:|---:|\n")
+        f.write(
+            f"| {acc*100:.3f}% | {prec*100:.3f}% | {rec*100:.3f}% | "
+            f"{f1*100:.3f}% | {macro_f1*100:.3f}% | {auc*100:.3f}% |\n\n"
+        )
+        f.write("## Test Holdout Confusion Matrix\n\n")
         f.write(f"- True Negatives (Benign as Benign): {cm[0][0]:,}\n")
         f.write(f"- False Positives (Benign as Malicious): {cm[0][1]:,}\n")
         f.write(f"- False Negatives (Malicious as Benign): {cm[1][0]:,}\n")
         f.write(f"- True Positives (Malicious as Malicious): {cm[1][1]:,}\n\n")
-        f.write("## 3. Operational Risk Analysis\n")
+        f.write("## Operational Error Rates\n")
         f.write(f"- **False Alarm Rate**: {cm[0][1] / (cm[0][0] + cm[0][1]) * 100:.3f}%\n")
         f.write(f"- **Missed Intrusion Rate (FN)**: {cm[1][0] / (cm[1][0] + cm[1][1]) * 100:.3f}%\n")
-        f.write("Both rates are rigorously tracked to ensure network operational stability and security containment.\n")
+        f.write("Review false positives and false negatives as part of operational monitoring.\n")
         
     logger.info(f"Test holdout evaluation complete: Acc={acc:.4f}, Macro-F1={macro_f1:.4f}")
     return results
 
 if __name__ == "__main__":
-    evaluate_on_untouched_holdout()
+    evaluate_on_test_holdout()

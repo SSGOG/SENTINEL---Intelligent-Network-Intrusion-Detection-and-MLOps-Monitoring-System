@@ -4,11 +4,10 @@ import json
 import logging
 import uuid
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Dict, List
 import joblib
 import numpy as np
-import pandas as pd
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
@@ -23,34 +22,37 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Load Champion Model and Preprocessor Bundle
+# Load champion model and feature schema
 champion_model = None
-preprocessor = None
 feature_names = []
 
+
 def load_serving_assets():
-    """Load model, preprocessor bundle, and feature schema.
-    The preprocessor bundle is a dict containing:
-      - "imputer": a fitted SimpleImputer or similar
-      - "scaler": a fitted StandardScaler
-      - "feature_names": list of feature names in order
-    """
-    global champion_model, preprocessor, feature_names
+    """Load the model and its ordered raw-feature schema."""
+    global champion_model, feature_names
     model_path = MODELS_DIR / "champion_model.joblib"
-    bundle_path = MODELS_DIR / "preprocessor_bundle.joblib"
     schema_path = PROCESSED_DIR / "feature_schema.json"
-    if model_path.exists() and bundle_path.exists() and schema_path.exists():
+    if model_path.exists() and schema_path.exists():
         champion_model = joblib.load(model_path)
-        preprocessor = joblib.load(bundle_path)  # dict with keys
         with open(schema_path, "r", encoding="utf-8") as f:
             schema = json.load(f)
-        feature_names = schema.get("feature_order", [])
+        feature_names = [
+            str(name).strip()
+            for name in schema.get("feature_order", schema.get("feature_names", []))
+        ]
+        expected = getattr(champion_model, "n_features_in_", len(feature_names))
+        if not feature_names or len(feature_names) != expected:
+            raise ValueError(
+                "Model feature contract mismatch: "
+                f"schema has {len(feature_names)} features, model expects {expected}"
+            )
         logger.info(f"Loaded champion model and {len(feature_names)} features.")
     else:
-        logger.warning("Model, preprocessor bundle, or schema not found.")
+        logger.warning("Model or feature schema not found.")
 
-    
+
 load_serving_assets()
+
 
 class SingleFlowRequest(BaseModel):
     features: Dict[str, float] = Field(..., description="Map of network flow feature names to numeric values")
@@ -72,6 +74,7 @@ class BatchPredictionResponse(BaseModel):
     benign_count: int
     predictions: List[PredictionResponse]
 
+
 @app.get("/health")
 def health_check():
     """Service liveness and readiness probe."""
@@ -82,6 +85,7 @@ def health_check():
         "features_configured": len(feature_names)
     }
 
+
 @app.get("/model-info")
 def model_info():
     """Model provenance and metadata inspection."""
@@ -90,47 +94,44 @@ def model_info():
     if manifest_path.exists():
         with open(manifest_path, "r", encoding="utf-8") as f:
             selection_info = json.load(f)
-            
+
     return {
-        "model_architecture": "HistGradientBoostingClassifier",
+        "model_architecture": type(champion_model).__name__ if champion_model is not None else None,
         "task": "Binary Network Intrusion Classification (Benign vs Malicious)",
         "features_expected": len(feature_names),
         "target_mapping": {"0": "BENIGN", "1": "MALICIOUS"},
         "provenance": selection_info
     }
 
-def format_and_impute_input(flow_dict: Dict[str, float]) -> np.ndarray:
-    """Format single dict into ordered feature vector and run bundled preprocessor."""
+
+def format_input(flow_dict: Dict[str, float]) -> np.ndarray:
+    """Format a flow dictionary into the model's ordered raw-feature vector."""
     vector = []
     for f in feature_names:
-        # Match case-insensitively or stripped
         val = flow_dict.get(f, flow_dict.get(f.strip(), 0.0))
         try:
             val_float = float(val)
         except (ValueError, TypeError):
             val_float = 0.0
         vector.append(val_float)
-        
-    vec_arr = np.array([vector])
-    # Apply imputer then scaler
-    imputed = preprocessor["imputer"].transform(vec_arr)
-    scaled = preprocessor["scaler"].transform(imputed)
-    return scaled
+
+    return np.array([vector], dtype=float)
+
 
 @app.post("/predict", response_model=PredictionResponse)
 def predict_single(request: SingleFlowRequest):
     """Predict intrusion class for a single network flow."""
-    if champion_model is None or preprocessor is None:
+    if champion_model is None:
         raise HTTPException(status_code=503, detail="Model service not ready.")
-    
+
     req_id = str(uuid.uuid4())
-    X_scaled = format_and_impute_input(request.features)
-    
-    pred = int(champion_model.predict(X_scaled)[0])
-    prob = float(champion_model.predict_proba(X_scaled)[0][1]) if hasattr(champion_model, "predict_proba") else (1.0 if pred == 1 else 0.0)
-    
+    X_raw = format_input(request.features)
+
+    pred = int(champion_model.predict(X_raw)[0])
+    prob = float(champion_model.predict_proba(X_raw)[0][1]) if hasattr(champion_model, "predict_proba") else (1.0 if pred == 1 else 0.0)
+
     label = "MALICIOUS" if pred == 1 else "BENIGN"
-    
+
     return PredictionResponse(
         request_id=req_id,
         prediction=label,
@@ -139,19 +140,20 @@ def predict_single(request: SingleFlowRequest):
         model_version="SENTINEL-v1.0"
     )
 
+
 @app.post("/predict-batch", response_model=BatchPredictionResponse)
 def predict_batch(request: BatchFlowRequest):
     """Predict intrusion class for a batch of flows (bounded to 1,000 for rate safety)."""
     if champion_model is None:
         raise HTTPException(status_code=503, detail="Model service not ready.")
-    
+
     if len(request.flows) > 1000:
         raise HTTPException(status_code=400, detail="Batch size exceeded. Max allowable is 1,000 flows.")
-        
+
     batch_preds = []
     mal_count = 0
     ben_count = 0
-    
+
     for f in request.flows:
         res = predict_single(SingleFlowRequest(features=f))
         batch_preds.append(res)
@@ -159,7 +161,7 @@ def predict_batch(request: BatchFlowRequest):
             mal_count += 1
         else:
             ben_count += 1
-            
+
     return BatchPredictionResponse(
         request_id=str(uuid.uuid4()),
         total_processed=len(batch_preds),

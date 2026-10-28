@@ -7,15 +7,15 @@
 ## Data
 - **Source**: CIC‑IDS2017 (8 CSV files, ~52 GB).
 - **Versioning**: Tracked with DVC; each raw file has SHA‑256 checksum stored in `data.dvc`.
-- **Pre‑processing**: Simple imputation + standard scaling (stored in `models/preprocessor.joblib`).
+- **Pre‑processing**: Numeric features are median-imputed before the train/validation/test split artifacts are written. The model consumes those raw imputed feature values; inference does not apply the retained legacy scaler.
 
 ## Model
-- **Algorithm**: `HistGradientBoostingClassifier` (scikit‑learn).
+- **Algorithm**: `XGBClassifier` (XGBoost).
 - **Performance** (hold‑out test):
-  - Accuracy: 99.87 %
-  - Precision: 99.90 %
-  - Recall: 99.85 %
-  - Macro‑F1: 99.79 %
+  - Accuracy: 99.92 %
+  - Precision: 99.62 %
+  - Recall: 99.98 %
+  - Macro‑F1: 99.88 %
 - **Explainability**: SHAP summary values provided in `reports/figures/shap_summary.json`.
 
 ## Responsible AI

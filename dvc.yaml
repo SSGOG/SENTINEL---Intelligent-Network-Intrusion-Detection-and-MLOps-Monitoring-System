@@ -8,6 +8,7 @@ stages:
     outs:
       - reports/data_quality/dataset_manifest.json
       - docs/evidence/data_audit_summary.md
+
   preprocess:
     cmd: python src/sentinel/preprocess.py
     deps:
@@ -15,19 +16,24 @@ stages:
       - reports/data_quality/dataset_manifest.json
     outs:
       - data/processed/X_train.npy
+      - data/processed/y_train.npy
       - data/processed/X_val.npy
+      - data/processed/y_val.npy
       - data/processed/X_test.npy
+      - data/processed/y_test.npy
       - data/processed/feature_schema.json
+
   train:
     cmd: python src/sentinel/train.py
     deps:
       - src/sentinel/train.py
       - data/processed/X_train.npy
-      - data/processed/X_val.npy
+      - data/processed/y_train.npy
     outs:
       - models/champion_model.joblib
       - models/preprocessor_bundle.joblib
       - reports/metrics/model_selection_manifest.json
+
   evaluate:
     cmd: python src/sentinel/evaluate.py
     deps:
@@ -35,5 +41,17 @@ stages:
       - models/champion_model.joblib
       - models/preprocessor_bundle.joblib
       - data/processed/X_test.npy
+      - data/processed/y_test.npy
     outs:
       - reports/metrics/histgradientboosting_eval.json
+
+  evaluate_all:
+    cmd: python src/sentinel/evaluate_all.py
+    deps:
+      - src/sentinel/evaluate_all.py
+      - models
+      - data/processed/X_val.npy
+      - data/processed/y_val.npy
+    outs:
+      - reports/metrics/all_models_metrics.json
+      - reports/metrics/confusion_matrices/

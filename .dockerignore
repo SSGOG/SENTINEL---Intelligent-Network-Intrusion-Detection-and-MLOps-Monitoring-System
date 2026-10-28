@@ -1,7 +1,9 @@
 # Exclude heavy data and caches
 *.pcap
 *.zip
-*.csv
+MachineLearningCSV/
+MachineLearningCSV_unzipped/
+GeneratedLabelledFlows/
 .dvc
 .dvcignore
 __pycache__
@@ -10,9 +12,18 @@ mlruns
 *.log
 *.db
 *.tmp
-# Keep only source, models, processed data, reports, requirements
+.git
+.venv
+.env
+*.md5
+
+# Keep source, models, processed data, sample data, reports, docs
 !src/
 !models/
 !data/processed/
+data/processed/*.npy
+!data/sample/
 !reports/
+!docs/
 !requirements.txt
+!start.sh

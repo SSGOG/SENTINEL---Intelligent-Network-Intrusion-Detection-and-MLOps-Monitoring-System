@@ -8,6 +8,7 @@ import pytest
 
 PREPROCESSOR_PATH = Path("models/preprocessor_bundle.joblib")
 SCHEMA_PATH = Path("data/processed/feature_schema.json")
+MODEL_PATH = Path("models/champion_model.joblib")
 TRAIN_X = Path("data/processed/X_train.npy")
 VAL_X = Path("data/processed/X_val.npy")
 TEST_X = Path("data/processed/X_test.npy")
@@ -19,14 +20,16 @@ def test_pipeline_assets_exist():
 
 def test_preprocessor_structure():
     preprocessor = joblib.load(PREPROCESSOR_PATH)
-    assert "imputer" in preprocessor
-    assert "scaler" in preprocessor
-    assert "feature_names" in preprocessor
-    assert len(preprocessor["feature_names"]) > 70
-    
     with open(SCHEMA_PATH, "r", encoding="utf-8") as f:
         schema = json.load(f)
-    assert schema["feature_count"] == len(preprocessor["feature_names"])
+    model = joblib.load(MODEL_PATH)
+
+    assert schema["feature_count"] == len(schema["feature_order"])
+    assert model.n_features_in_ == schema["feature_count"]
+    if isinstance(preprocessor, dict):
+        assert len(preprocessor["feature_names"]) == schema["feature_count"]
+    else:
+        assert preprocessor.n_features_in_ == schema["feature_count"]
 
 def test_no_nan_or_inf_in_processed_splits():
     X_tr = np.load(TRAIN_X)

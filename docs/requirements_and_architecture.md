@@ -4,7 +4,7 @@
 Detect malicious network flows in real‑time using the **CIC‑IDS2017** flow‑based CSV dataset and provide a full MLOps lifecycle (data versioning, reproducible pipelines, experiment tracking, model serving, CI/CD, monitoring, and optional low‑cost AWS deployment).
 
 ## Core Stack (local‑first)
-- **Python 3.11** – pandas, NumPy, scikit‑learn (baseline), optional XGBoost.
+- **Python 3.11** – pandas, NumPy, scikit‑learn, and XGBoost for the current champion.
 - **DVC** – data & model versioning, pipeline orchestration.
 - **MLflow** – experiment tracking, model registry.
 - **FastAPI** – model inference service.
@@ -35,7 +35,7 @@ flowchart TD
 
 ## Budget Guardrails
 - Raw dataset (~52 GB) **never** uploaded; stored locally.
-- Only the **Docker image** (≈ 200 MB) and small artefacts (model .joblib, JSON reports) are pushed to AWS.
+- Only the **Docker image** and small artefacts (model .joblib, JSON reports) are pushed to AWS; the serving image excludes training-only dependencies and raw datasets.
 - EC2 runs are **started, health‑checked, then terminated** automatically to stay < $100.
 - All secrets (AWS keys) are **never committed**; the script expects the user to run `aws configure` beforehand.
 

@@ -1,42 +1,56 @@
-# Multi‑stage Dockerfile for SENTINEL FastAPI service
-# ------------------------------------------------------
-# Builder stage – sets up the Python environment and installs deps
+# ---- Build stage ---------------------------------------------------------
 FROM python:3.11-slim AS builder
+
+# System packages needed at build time
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-# Install build‑essential for any compiled wheels (e.g., xgboost)
-RUN apt-get update && apt-get install -y --no-install-recommends gcc && rm -rf /var/lib/apt/lists/*
+# Install only the dependencies used by the serving container
+COPY requirements-runtime.txt .
+RUN pip install --no-cache-dir -r requirements-runtime.txt
 
-# Copy only the requirements to leverage layer caching
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the source code and model artifacts
+# Copy source code and all required data/report assets
 COPY src/ ./src/
 COPY models/ ./models/
-COPY data/processed/feature_schema.json ./data/processed/
-COPY reports/metrics/model_selection_manifest.json ./reports/metrics/
+COPY data/processed/feature_schema.json ./data/processed/feature_schema.json
+COPY data/sample/ ./data/sample/
+COPY reports/ ./reports/
+COPY docs/ ./docs/
 
-# Final runtime image – minimal
+# ---- Runtime stage --------------------------------------------------------
 FROM python:3.11-slim AS runtime
+
+# Create a non-root user for security
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgomp1 \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd -r appgroup \
+    && useradd -r -g appgroup appuser
+
 WORKDIR /app
 
-# Copy only the installed packages from builder
-COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+# Copy only the needed files from the builder
+COPY --from=builder /usr/local/lib/python3.11 /usr/local/lib/python3.11
 COPY --from=builder /usr/local/bin /usr/local/bin
-
-# Copy application files
 COPY --from=builder /app/src ./src
 COPY --from=builder /app/models ./models
-COPY --from=builder /app/data/processed ./data/processed
-COPY --from=builder /app/reports/metrics ./reports/metrics
+COPY --from=builder /app/data/processed/feature_schema.json ./data/processed/feature_schema.json
+COPY --from=builder /app/data/sample ./data/sample
+COPY --from=builder /app/reports ./reports
+COPY --from=builder /app/docs ./docs
+COPY --chmod=755 start.sh ./start.sh
 
-# Expose the FastAPI port
-EXPOSE 8000
-
-# Set non‑root user for security (optional but recommended)
-RUN groupadd -r appgroup && useradd -r -g appgroup appuser && chown -R appuser:appgroup /app
+# Switch to non-root user
 USER appuser
 
-# Entrypoint – start the API
-ENTRYPOINT ["uvicorn", "src.sentinel.api:app", "--host", "0.0.0.0", "--port", "8000"]
+# Expose the ports that the container will serve
+EXPOSE 8000 8501
+
+# Set a writable HOME for Streamlit (non-root user)
+ENV HOME=/tmp
+
+# Start FastAPI and Streamlit together
+CMD ["./start.sh"]

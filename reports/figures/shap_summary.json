@@ -4,63 +4,63 @@
   "top_predictive_features": [
     {
       "feature": "Init_Win_bytes_forward",
-      "mean_abs_shap": 2.156892955319861
+      "mean_abs_shap": 2.518378257751465
     },
     {
       "feature": "Destination Port",
-      "mean_abs_shap": 1.413327055197905
-    },
-    {
-      "feature": "Bwd Packet Length Min",
-      "mean_abs_shap": 1.2439777497193598
-    },
-    {
-      "feature": "Bwd Packet Length Std",
-      "mean_abs_shap": 0.7182353003268755
+      "mean_abs_shap": 2.004469871520996
     },
     {
       "feature": "Init_Win_bytes_backward",
-      "mean_abs_shap": 0.5360080636620062
+      "mean_abs_shap": 1.3790175914764404
+    },
+    {
+      "feature": "Bwd Packet Length Std",
+      "mean_abs_shap": 0.7301872968673706
+    },
+    {
+      "feature": "Bwd Packet Length Min",
+      "mean_abs_shap": 0.7118719220161438
+    },
+    {
+      "feature": "Bwd Packet Length Mean",
+      "mean_abs_shap": 0.6496628522872925
     },
     {
       "feature": "Average Packet Size",
-      "mean_abs_shap": 0.3468263363157973
-    },
-    {
-      "feature": "Packet Length Std",
-      "mean_abs_shap": 0.3215552424762288
-    },
-    {
-      "feature": "Total Fwd Packets",
-      "mean_abs_shap": 0.2690936847033268
-    },
-    {
-      "feature": "Idle Max",
-      "mean_abs_shap": 0.25924559881207565
-    },
-    {
-      "feature": "Bwd Header Length",
-      "mean_abs_shap": 0.2472406431290184
+      "mean_abs_shap": 0.6329395771026611
     },
     {
       "feature": "PSH Flag Count",
-      "mean_abs_shap": 0.2179817536763361
-    },
-    {
-      "feature": "Fwd Header Length",
-      "mean_abs_shap": 0.21215269889551536
-    },
-    {
-      "feature": "Active Min",
-      "mean_abs_shap": 0.19398474692494233
-    },
-    {
-      "feature": "Fwd Packet Length Std",
-      "mean_abs_shap": 0.17289352577135145
+      "mean_abs_shap": 0.5356904864311218
     },
     {
       "feature": "min_seg_size_forward",
-      "mean_abs_shap": 0.14793197702016456
+      "mean_abs_shap": 0.4609034061431885
+    },
+    {
+      "feature": "Flow IAT Min",
+      "mean_abs_shap": 0.43625208735466003
+    },
+    {
+      "feature": "Fwd Header Length",
+      "mean_abs_shap": 0.43522393703460693
+    },
+    {
+      "feature": "Fwd IAT Min",
+      "mean_abs_shap": 0.3891535997390747
+    },
+    {
+      "feature": "Bwd Header Length",
+      "mean_abs_shap": 0.3822871744632721
+    },
+    {
+      "feature": "Bwd Packets/s",
+      "mean_abs_shap": 0.29931923747062683
+    },
+    {
+      "feature": "Total Backward Packets",
+      "mean_abs_shap": 0.26249566674232483
     }
   ],
   "interpretability_note": "Attributions highlight flow duration, packet length variance, and header lengths as critical indicators. Explanations assist security analysts in triage but do not prove causality or eliminate historical bias."

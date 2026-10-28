@@ -1,9 +1,10 @@
 """Unit and integration tests for FastAPI endpoints."""
 
-from pathlib import Path
-import pytest
+import json
+import pandas as pd
 from fastapi.testclient import TestClient
-from src.sentinel.api import app
+from src.sentinel.api import app, champion_model
+from sentinel.predict import engine
 
 client = TestClient(app)
 
@@ -19,7 +20,7 @@ def test_model_info_endpoint():
     response = client.get("/model-info")
     assert response.status_code == 200
     data = response.json()
-    assert "HistGradientBoostingClassifier" in data["model_architecture"]
+    assert data["model_architecture"] == type(champion_model).__name__
     assert "provenance" in data
 
 def test_predict_single_flow():
@@ -53,3 +54,35 @@ def test_predict_batch_flows():
     data = response.json()
     assert data["total_processed"] == 2
     assert len(data["predictions"]) == 2
+
+def test_serving_uses_raw_model_features():
+    with open("data/processed/feature_schema.json", "r", encoding="utf-8") as f:
+        schema = json.load(f)
+    sample = pd.read_csv("data/sample/demo_flows_sample.csv", nrows=1, low_memory=False)
+    normalized_sample = sample.rename(columns=lambda column: column.strip())
+    ordered_features = [name.strip() for name in schema["feature_order"]]
+    test_features = normalized_sample[ordered_features].to_numpy()
+    expected_prediction = int(champion_model.predict(test_features)[0])
+    payload = {
+        "features": dict(zip(ordered_features, test_features[0].tolist()))
+    }
+
+    response = client.post("/predict", json=payload)
+
+    assert response.status_code == 200
+    assert response.json()["is_malicious"] == expected_prediction
+    assert engine.predict_flow(payload["features"])["is_malicious"] == expected_prediction
+
+def test_batch_csv_uses_canonical_feature_order():
+    with open("data/processed/feature_schema.json", "r", encoding="utf-8") as f:
+        schema = json.load(f)
+    sample = pd.read_csv("data/sample/demo_flows_sample.csv", nrows=3, low_memory=False)
+    normalized_sample = sample.rename(columns=lambda column: column.strip())
+    ordered_features = [name.strip() for name in schema["feature_order"]]
+    expected = champion_model.predict(normalized_sample[ordered_features].to_numpy())
+
+    results, stats = engine.predict_dataframe(sample)
+
+    actual = (results["SENTINEL_PREDICTION"] == "MALICIOUS").astype(int).to_numpy()
+    assert actual.tolist() == expected.tolist()
+    assert stats["total"] == len(sample)

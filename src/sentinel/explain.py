@@ -20,15 +20,25 @@ def generate_shap_explanations(sample_size: int = 200):
     """Compute TreeExplainer/KernelExplainer feature attributions on a representative sample."""
     logger.info("Computing SHAP feature importance...")
     model = joblib.load(MODELS_DIR / "champion_model.joblib")
-    preprocessor = joblib.load(MODELS_DIR / "preprocessor.joblib")
-    feature_names = preprocessor["feature_names"]
-    
+    with open(PROCESSED_DIR / "feature_schema.json", "r", encoding="utf-8") as f:
+        schema = json.load(f)
+    feature_names = [
+        str(name).strip()
+        for name in schema.get("feature_order", schema.get("feature_names", []))
+    ]
+
     X_test = np.load(PROCESSED_DIR / "X_test.npy")
+    expected = getattr(model, "n_features_in_", len(feature_names))
+    if not feature_names or len(feature_names) != expected:
+        raise ValueError(
+            "Model feature contract mismatch: "
+            f"schema has {len(feature_names)} features, model expects {expected}"
+        )
+
     np.random.seed(42)
     indices = np.random.choice(len(X_test), size=min(sample_size, len(X_test)), replace=False)
-    X_sample = X_test[indices]
+    X_sample = pd.DataFrame(X_test[indices], columns=feature_names)
     
-    # Use TreeExplainer for HistGradientBoosting
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X_sample)
     

@@ -9,5 +9,9 @@ A reproducible, local-first, zero-budget MLOps framework designed for production
 - **Reproducible Data & Pipeline Tracking**: DVC versioning for feature pipelines and MLflow for tracking parameters, metrics, and models.
 - **Production REST Serving**: FastAPI inference microservice with pydantic contract validation.
 - **Professional Security Dashboard**: Interactive Streamlit application for single-flow inspection, batch triage, real-time drift metrics, and lineage tracking.
-- **CI/CD Automation**: GitHub Actions workflow for linting, contract verification, and Docker image builds.
+- **CI/CD Automation**: GitHub Actions workflow for DVC pipeline execution, test verification, and Docker image builds.
 - **Responsible AI & Governance**: Rigorous error analysis, SHAP feature attribution, model card, risk register, and roll-back strategy.
+
+## Documentation
+- [Project report: architecture, methods, results, and limitations](PROJECT_EXPLANATION.md)
+- [Run guide: local setup, DVC, MLflow, FastAPI, Streamlit, Docker, and AWS](RUN_GUIDE.md)

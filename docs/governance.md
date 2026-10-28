@@ -1,5 +1,10 @@
 # SENTINEL Governance Documentation
 
+**Git commit SHA:** `c30938ff8d545f4df9079e230b01a5527590e8fb`
+**DVC revision (data version):** `c30938ff8d545f4df9079e230b01a5527590e8fb`
+
+
+
 ## Versioning & Audit Trail
 - **Data**: Managed with DVC. `data.dvc` tracks raw CSVs and processed Parquet files. Each version includes SHA‑256 checksum.
 - **Model**: Stored under `models/` and tracked with DVC (`models.dvc`).
